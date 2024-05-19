@@ -6,6 +6,10 @@ const UserSchema = new Schema({
     unique: [true, 'Email already exists!'],
     required: [true, 'Email is required!'],
   },
+  password: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: [true, 'Username is required!'],
@@ -13,8 +17,18 @@ const UserSchema = new Schema({
   },
   image: {
     type: String,
-  }
+  },
 });
+
+// UserSchema.pre('save', async function (next) {
+//   const user = this; // 'this' refers to the current user instance
+//   if (!user.isModified('password')) return next();
+
+//   // Hash the password
+//   const salt = await bcrypt.genSalt(10);
+//   user.password = await bcrypt.hash(user.password, salt);
+//   next();
+// });
 
 const User = models.User || model("User", UserSchema);
 
